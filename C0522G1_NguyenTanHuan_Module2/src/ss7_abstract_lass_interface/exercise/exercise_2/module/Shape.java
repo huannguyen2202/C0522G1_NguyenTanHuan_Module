@@ -1,4 +1,6 @@
-package ss6_inheritance.practice.sape;
+package ss7_abstract_lass_interface.exercise.exercise_2.module;
+
+import ss7_abstract_lass_interface.exercise.exercise_1.module.Resizeable;
 
 public abstract class Shape {
     private String color = "green";

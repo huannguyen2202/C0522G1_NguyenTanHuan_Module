@@ -1,6 +1,6 @@
-package ss6_inheritance.practice.sape;
+package ss7_abstract_lass_interface.exercise.exercise_1.module;
 
-public abstract class Shape {
+public abstract class Shape implements Resizeable {
     private String color = "green";
     private boolean filled = true;
 
