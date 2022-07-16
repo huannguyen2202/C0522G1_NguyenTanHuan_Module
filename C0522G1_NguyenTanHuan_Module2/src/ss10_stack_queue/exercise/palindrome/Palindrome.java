@@ -8,22 +8,26 @@ import java.util.Stack;
 public class Palindrome {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Nhập vào một chuỗi: ");
+        System.out.println("Nhập vào một chuỗi");
         String str = scanner.nextLine();
-        Queue<Character> strQueue = new LinkedList<>();
-        Stack<Character> strStack= new Stack<>();
-        for (int i = 0; i<str.length(); i++){
-            strQueue.add(str.charAt(i));
-            strStack.push(str.charAt(i));
-        }
-        System.out.println(strQueue);
-        System.out.println(strStack);
-        for (int i = 0; i<str.length(); i++){
-            System.out.print(strStack.pop());
-            System.out.print(strQueue.poll());
+        Queue<Character> characterQueue = new LinkedList<>();
+        Stack<Character> characterStack = new Stack<>();
+        for (int i = 0; i < str.length(); i++) {
+            characterQueue.add(str.charAt(i));
+            characterStack.push(str.charAt(i));
         }
 
-
-
+        boolean isFalse = false;
+        while (characterQueue.isEmpty() && characterStack.isEmpty()) {
+            if (characterQueue.poll() != characterStack.pop()) {
+                isFalse = true;
+                break;
+            }
+        }
+        if (isFalse) {
+            System.out.println("Không phải là chuỗi Palindrome");
+        } else {
+            System.out.println("Là chuỗi Palindrome");
+        }
     }
 }
