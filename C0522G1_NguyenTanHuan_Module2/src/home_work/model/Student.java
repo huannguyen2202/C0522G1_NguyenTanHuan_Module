@@ -13,6 +13,9 @@ public class Student extends Person {
         this.point = point;
     }
 
+    public Student(String nam, int i, String hn) {
+    }
+
     public String getNamClass() {
         return namClass;
     }
