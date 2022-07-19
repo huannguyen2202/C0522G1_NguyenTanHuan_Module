@@ -10,6 +10,20 @@ import java.util.Scanner;
 public class StudentService implements IStudentService {
     private static List<Student> studentList = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
+    static {
+
+        Student student1 = new Student(1, "Nguyễn Tất Thành", "24-02-2000", "Nam", "C052G1", 10);
+        Student student2 = new Student(2, "Nguyễn Tấn Huân", "26-09-2000", "Nam", "C052G1", 7);
+        Student student3 = new Student(3, "Bùi Hùng", "28-12-2000", "Nam", "C052G1", 6);
+        Student student4 = new Student(4, "Lê Đại Lợi", "30-08-2000", "Nam", "C052G1", 8);
+        Student student5 = new Student(5, "Huỳnh Trung Thuyên", "01-12-2000", "Nam", "C052G1", 9);
+
+        studentList.add(student1);
+        studentList.add(student2);
+        studentList.add(student3);
+        studentList.add(student4);
+        studentList.add(student5);
+    }
 
     @Override
     public void addStudent() {
@@ -50,6 +64,33 @@ public class StudentService implements IStudentService {
         if (!isFlag) {
             System.out.println("Không tìm thấy");
         }
+    }
+
+    @Override
+    public void searchStudent() {
+        System.out.println("Bạn muốn tìm kiếm theo tên hay id! \n" +
+                "1. Tìm kiếm theo id. \n" +
+                "2. Tìm kiếm theo tên. \n");
+        int choose = Integer.parseInt(scanner.nextLine());
+        if (choose == 1) {
+            System.out.println("Mời bạn nhập id sinh viên cần tìm: ");
+            int searchId = Integer.parseInt(scanner.nextLine());
+            for (Student student : studentList) {
+                if (searchId == student.getId()) {
+                    System.out.println(student);
+                }
+            }
+
+        } else {
+            System.out.println("Mời bạn nhập tên sinh viên cần tìm: ");
+            String searchName = scanner.nextLine();
+            for (Student student: studentList){
+                if (student.getName().toLowerCase().contains(searchName.toLowerCase())){
+                    System.out.println(student);
+                }
+            }
+        }
+
     }
 
     public static Student infoStudent() {
