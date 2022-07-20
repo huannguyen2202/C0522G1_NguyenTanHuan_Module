@@ -3,9 +3,7 @@ package home_work.service.impl;
 import home_work.model.Student;
 import home_work.service.IStudentService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class StudentService implements IStudentService {
     private static List<Student> studentList = new ArrayList<>();
@@ -90,6 +88,24 @@ public class StudentService implements IStudentService {
                 }
             }
         }
+
+    }
+
+    @Override
+    public void sortByName() {
+        boolean needNextPass = true;
+        for (int i = 0; i < studentList.size()-1 && needNextPass; i++) {
+            needNextPass = false;
+            for (int j = 0; j < studentList.size() - 1-i; j++) {
+                if (studentList.get(j).getName().compareTo(studentList.get(j+1).getName())>0){
+                    Collections.swap(studentList,j,j+1);
+                }
+
+
+            }
+
+        }
+
 
     }
 
