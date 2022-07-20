@@ -99,6 +99,7 @@ public class StudentService implements IStudentService {
             for (int j = 0; j < studentList.size() - 1-i; j++) {
                 if (studentList.get(j).getName().compareTo(studentList.get(j+1).getName())>0){
                     Collections.swap(studentList,j,j+1);
+                    needNextPass=true;
                 }
 
 
