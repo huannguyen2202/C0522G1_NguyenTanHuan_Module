@@ -7,7 +7,9 @@ public interface IStudentService {
 
     void removeStudent();
 
-    void searchStudent();
+    void searchStudentById();
+
+    void searchStudentByName();
 
     void sortByName();
 }

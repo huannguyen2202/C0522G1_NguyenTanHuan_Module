@@ -65,33 +65,78 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public void searchStudent() {
-        System.out.println("Bạn muốn tìm kiếm theo tên hay id! \n" +
-                "1. Tìm kiếm theo id. \n" +
-                "2. Tìm kiếm theo tên. \n");
-        int choose = Integer.parseInt(scanner.nextLine());
-        if (choose == 1) {
-            System.out.println("Mời bạn nhập id sinh viên cần tìm: ");
-            int searchId = Integer.parseInt(scanner.nextLine());
-            for (Student student : studentList) {
-                if (searchId == student.getId()) {
-                    System.out.println(student);
+    public void searchStudentById() {
+        System.out.println("Mời bạn nhập id sinh viên cần tìm: ");
+        int searchId=0;
+        while (true){
+            try {
+                searchId = Integer.parseInt(scanner.nextLine());
+                for (Student student : studentList) {
+                    if (searchId == student.getId()) {
+                        System.out.println(student);
+                    }
                 }
+                break;
+            } catch (NumberFormatException e){
+                System.out.println("Hãy nhập lại số!");
             }
 
-        } else {
-            System.out.println("Mời bạn nhập tên sinh viên cần tìm: ");
-            String searchName = scanner.nextLine();
-            for (Student student: studentList){
-                if (student.getName().toLowerCase().contains(searchName.toLowerCase())){
-                    System.out.println(student);
-                }
-            }
         }
 
     }
 
     @Override
+    public void searchStudentByName() {
+        System.out.println("Mời bạn nhập tên sinh viên cần tìm: ");
+        String searchName;
+        while (true){
+            try {
+                searchName = scanner.nextLine();
+                for (Student student: studentList) {
+                    if (student.getName().toLowerCase().contains(searchName.toLowerCase())) {
+                        System.out.println(student);
+                    }
+                }
+                break;
+
+            } catch (NumberFormatException e){
+                System.out.println("Hãy nhập lại tên!");
+            }
+        }
+
+    }
+
+//    @Override
+//    public void searchStudent() {
+//        System.out.println("Bạn muốn tìm kiếm theo tên hay id! \n" +
+//                "1. Tìm kiếm theo id. \n" +
+//                "2. Tìm kiếm theo tên. \n");
+//        int choose = Integer.parseInt(scanner.nextLine());
+//        if (choose == 1) {
+//            try {
+//
+//            }
+//            System.out.println("Mời bạn nhập id sinh viên cần tìm: ");
+//            int searchId = Integer.parseInt(scanner.nextLine());
+//            for (Student student : studentList) {
+//                if (searchId == student.getId()) {
+//                    System.out.println(student);
+//                }
+//            }
+//
+//        } else {
+//            System.out.println("Mời bạn nhập tên sinh viên cần tìm: ");
+//            String searchName = scanner.nextLine();
+//            for (Student student: studentList){
+//                if (student.getName().toLowerCase().contains(searchName.toLowerCase())){
+//                    System.out.println(student);
+//                }
+//            }
+//        }
+//
+//    }
+
+
     public void sortByName() {
         boolean needNextPass = true;
         for (int i = 0; i < studentList.size()-1 && needNextPass; i++) {
