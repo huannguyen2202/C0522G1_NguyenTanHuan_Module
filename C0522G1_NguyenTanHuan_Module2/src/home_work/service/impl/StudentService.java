@@ -1,5 +1,6 @@
 package home_work.service.impl;
 
+import home_work.exception.DuplicateIDException;
 import home_work.model.Student;
 import home_work.service.IStudentService;
 
@@ -23,6 +24,7 @@ public class StudentService implements IStudentService {
         studentList.add(student5);
     }
 
+
     @Override
     public void addStudent() {
         Student student = infoStudent();
@@ -42,25 +44,34 @@ public class StudentService implements IStudentService {
     @Override
     public void removeStudent() {
         System.out.println("Mời bạn nhập id cần xóa: ");
-        int idRemove = Integer.parseInt(scanner.nextLine());
-        boolean isFlag = false;
-        for (Student student : studentList) {
-            if (student.getId() == idRemove) {
-                System.out.println(" Bạn có chắc muốn xóa hay không? \n" +
-                        "1. Có \n" +
-                        "2. Không");
-                int chooseYesNo = Integer.parseInt(scanner.nextLine());
-                if (chooseYesNo == 1) {
-                    studentList.remove(student);
-                    System.out.println("Xóa thành công!.");
-                }
-                isFlag = true;
-                break;
+        int idRemove=0;
+        while (true){
+            try {
+                idRemove = Integer.parseInt(scanner.nextLine());
+                boolean isFlag = false;
+                for (Student student : studentList) {
+                    if (student.getId() == idRemove) {
+                        System.out.println(" Bạn có chắc muốn xóa hay không? \n" +
+                                "1. Có \n" +
+                                "2. Không");
+                        int chooseYesNo = Integer.parseInt(scanner.nextLine());
+                        if (chooseYesNo == 1) {
+                            studentList.remove(student);
+                            System.out.println("Xóa thành công!.");
+                        }
+                        isFlag = true;
+                        break;
 
+                    }
+                }
+                if (!isFlag) {
+                    System.out.println("Không tìm thấy");
+                }
+                return;
+
+            } catch (NumberFormatException e){
+                System.out.println("Bạn có chắc mình nhập đúng ID");
             }
-        }
-        if (!isFlag) {
-            System.out.println("Không tìm thấy");
         }
     }
 
@@ -89,19 +100,16 @@ public class StudentService implements IStudentService {
     public void searchStudentByName() {
         System.out.println("Mời bạn nhập tên sinh viên cần tìm: ");
         String searchName;
-        while (true){
-            try {
-                searchName = scanner.nextLine();
-                for (Student student: studentList) {
-                    if (student.getName().toLowerCase().contains(searchName.toLowerCase())) {
-                        System.out.println(student);
-                    }
-                }
-                break;
-
-            } catch (NumberFormatException e){
-                System.out.println("Hãy nhập lại tên!");
+        searchName = scanner.nextLine();
+        boolean flag =false;
+        for (Student student: studentList) {
+            if (student.getName().toLowerCase().contains(searchName.toLowerCase())) {
+                System.out.println(student);
+                flag=true;
             }
+        }
+        if (!flag){
+            System.out.println("Không tìm thấy!");
         }
 
     }
@@ -146,29 +154,69 @@ public class StudentService implements IStudentService {
                     Collections.swap(studentList,j,j+1);
                     needNextPass=true;
                 }
-
-
             }
-
         }
-
-
     }
-
     public static Student infoStudent() {
         System.out.print("Nhập id: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id = 0;
+        while (true) {
+            try {
+                id = Integer.parseInt(scanner.nextLine());
+                System.out.println("ID : " + id);
+                for (Student student:studentList){
+                    if (student.getId()==id){
+                        throw new DuplicateIDException("ID đã có,vui lòng nhập lại");
+                    }
+                }
+                break;
+            } catch (NumberFormatException e ) {
+                System.out.println("Bạn có chắc mình nhập đúng,hãy nhập lại");
+            }
+            catch (DuplicateIDException e){
+                System.out.println(e.getMessage());
+            }
+        }
         System.out.print("Nhập name: ");
         String name = scanner.nextLine();
+        System.out.println("Tên sinh viên: " + name);
         System.out.print("Nhập ngày sinh: ");
-        String dateOfBirth = scanner.nextLine();
-        System.out.print("Nhập giới tính: ");
+        String dayOfBirth = scanner.nextLine();
+        System.out.println("Ngày sinh: " + dayOfBirth);
+        System.out.println("Nhập vào giới tính");
         String gender = scanner.nextLine();
-        System.out.print("Nhập tên lớp: ");
-        String nameClass = scanner.nextLine();
+        System.out.println("Giới tính : " + gender);
         System.out.print("Nhập điểm: ");
-        double point = Double.parseDouble(scanner.nextLine());
-        Student student = new Student(id, name, dateOfBirth, gender, nameClass, point);
-        return student;
+        double score = 0.0;
+        while (true) {
+            try {
+                score = Double.parseDouble(scanner.nextLine());
+                System.out.println("Điểm: " + score);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Bạn có chắc mình nhập đúng,hãy nhập lại");
+            }
+        }
+        System.out.print("Nhập tên Lớp: ");
+        String className = scanner.nextLine();
+        System.out.println("Lớp: " + className);
+        return new Student(id, name, dayOfBirth, gender, className, score);
     }
+
+//    public static Student infoStudent() {
+//        System.out.print("Nhập id: ");
+//        int id = Integer.parseInt(scanner.nextLine());
+//        System.out.print("Nhập name: ");
+//        String name = scanner.nextLine();
+//        System.out.print("Nhập ngày sinh: ");
+//        String dateOfBirth = scanner.nextLine();
+//        System.out.print("Nhập giới tính: ");
+//        String gender = scanner.nextLine();
+//        System.out.print("Nhập tên lớp: ");
+//        String nameClass = scanner.nextLine();
+//        System.out.print("Nhập điểm: ");
+//        double point = Double.parseDouble(scanner.nextLine());
+//        Student student = new Student(id, name, dateOfBirth, gender, nameClass, point);
+//        return student;
+//    }
 }
