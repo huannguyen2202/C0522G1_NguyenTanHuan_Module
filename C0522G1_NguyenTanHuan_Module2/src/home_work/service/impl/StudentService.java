@@ -3,38 +3,57 @@ package home_work.service.impl;
 import home_work.exception.DuplicateIDException;
 import home_work.model.Student;
 import home_work.service.IStudentService;
+import home_work.util.ReadFileUtil;
+import home_work.util.WriteFileUtil;
 
+import java.io.IOException;
 import java.util.*;
 
 public class StudentService implements IStudentService {
     private static List<Student> studentList = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
-    static {
-
-        Student student1 = new Student(1, "Nguyễn Tất Thành", "24-02-2000", "Nam", "C052G1", 10);
-        Student student2 = new Student(2, "Nguyễn Tấn Huân", "26-09-2000", "Nam", "C052G1", 7);
-        Student student3 = new Student(3, "Bùi Hùng", "28-12-2000", "Nam", "C052G1", 6);
-        Student student4 = new Student(4, "Lê Đại Lợi", "30-08-2000", "Nam", "C052G1", 8);
-        Student student5 = new Student(5, "Huỳnh Trung Thuyên", "01-12-2000", "Nam", "C052G1", 9);
-
-        studentList.add(student1);
-        studentList.add(student2);
-        studentList.add(student3);
-        studentList.add(student4);
-        studentList.add(student5);
-    }
+    private static final String PATH = "src/home_work/data/student.csv";
+//    static {
+//
+//        Student student1 = new Student(1, "Nguyễn Tất Thành", "24-02-2000", "Nam", "C052G1", 10);
+//        Student student2 = new Student(2, "Nguyễn Tấn Huân", "26-09-2000", "Nam", "C052G1", 7);
+//        Student student3 = new Student(3, "Bùi Hùng", "28-12-2000", "Nam", "C052G1", 6);
+//        Student student4 = new Student(4, "Lê Đại Lợi", "30-08-2000", "Nam", "C052G1", 8);
+//        Student student5 = new Student(5, "Huỳnh Trung Thuyên", "01-12-2000", "Nam", "C052G1", 9);
+//
+//        studentList.add(student1);
+//        studentList.add(student2);
+//        studentList.add(student3);
+//        studentList.add(student4);
+//        studentList.add(student5);
+//    }
 
 
     @Override
     public void addStudent() {
+        List<Student> addStudent=new ArrayList<>();
         Student student = infoStudent();
-        studentList.add(student);
+        addStudent.add(student);
+//        studentList.add(student);
         System.out.println("Thêm mới thành công!. ");
+        try {
+            WriteFileUtil.writeStudentFile(PATH,addStudent);
+            studentList.add(student);
+            addStudent.remove(0);
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public void displayAllStudent() {
+        try {
+            studentList= ReadFileUtil.readStudentFile(PATH);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
         for (Student student : studentList) {
             System.out.println(student);
         }
@@ -58,6 +77,11 @@ public class StudentService implements IStudentService {
                         if (chooseYesNo == 1) {
                             studentList.remove(student);
                             System.out.println("Xóa thành công!.");
+                            try {
+                                WriteFileUtil.writeStudentFileRemove(PATH,studentList);
+                            } catch (IOException e){
+                                e.printStackTrace();
+                            }
                         }
                         isFlag = true;
                         break;

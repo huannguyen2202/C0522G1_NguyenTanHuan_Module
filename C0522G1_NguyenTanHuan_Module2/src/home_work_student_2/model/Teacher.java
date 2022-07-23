@@ -1,7 +1,4 @@
 package home_work_student_2.model;
-
-import home_work.model.Person;
-
 public class Teacher extends Person {
     private String specialize;
 

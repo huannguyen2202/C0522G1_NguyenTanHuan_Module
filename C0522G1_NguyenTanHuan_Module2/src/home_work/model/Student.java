@@ -31,6 +31,9 @@ public class Student extends Person {
     public void setPoint(double point) {
         this.point = point;
     }
+    public String getInfo() {
+        return String.format("%s,%s,%s,%s,%s,%s\n", this.getId(), this.getName(), this.getDateOfBirth(), this.getGender(), this.getNamClass(), this.getPoint());
+    }
 
     @Override
     public String toString() {

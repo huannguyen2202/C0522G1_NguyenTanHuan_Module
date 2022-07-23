@@ -3,6 +3,7 @@ package home_work_student_2.service.impl;
 import home_work.exception.DuplicateIDException;
 import home_work.model.Student;
 import home_work.service.IStudentService;
+import home_work_student_2.util.WriteFileUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,20 +13,22 @@ import java.util.Scanner;
 public class StudentService implements IStudentService {
     private static List<Student> studentList = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
-    static {
+    private static final String PATH="src/home_work_student_2/data/student.csv";
 
-        Student student1 = new Student(1, "Nguyễn Tất Thành", "24-02-2000", "Nam", "C052G1", 10);
-        Student student2 = new Student(2, "Nguyễn Tấn Huân", "26-09-2000", "Nam", "C052G1", 7);
-        Student student3 = new Student(3, "Bùi Hùng", "28-12-2000", "Nam", "C052G1", 6);
-        Student student4 = new Student(4, "Lê Đại Lợi", "30-08-2000", "Nam", "C052G1", 8);
-        Student student5 = new Student(5, "Huỳnh Trung Thuyên", "01-12-2000", "Nam", "C052G1", 9);
-
-        studentList.add(student1);
-        studentList.add(student2);
-        studentList.add(student3);
-        studentList.add(student4);
-        studentList.add(student5);
-    }
+//    static {
+//
+//        Student student1 = new Student(1, "Nguyễn Tất Thành", "24-02-2000", "Nam", "C052G1", 10);
+//        Student student2 = new Student(2, "Nguyễn Tấn Huân", "26-09-2000", "Nam", "C052G1", 7);
+//        Student student3 = new Student(3, "Bùi Hùng", "28-12-2000", "Nam", "C052G1", 6);
+//        Student student4 = new Student(4, "Lê Đại Lợi", "30-08-2000", "Nam", "C052G1", 8);
+//        Student student5 = new Student(5, "Huỳnh Trung Thuyên", "01-12-2000", "Nam", "C052G1", 9);
+//
+//        studentList.add(student1);
+//        studentList.add(student2);
+//        studentList.add(student3);
+//        studentList.add(student4);
+//        studentList.add(student5);
+//    }
 
 
     @Override

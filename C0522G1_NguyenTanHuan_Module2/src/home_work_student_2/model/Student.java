@@ -1,7 +1,5 @@
 package home_work_student_2.model;
 
-import home_work.model.Person;
-
 public class Student extends Person {
     private String namClass;
     private double point;

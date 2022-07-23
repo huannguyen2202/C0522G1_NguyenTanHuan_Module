@@ -3,6 +3,7 @@ package home_work.service.impl;
 import home_work.model.Student;
 import home_work.model.Teacher;
 import home_work.service.ITeacherService;
+import home_work.util.WriteFileUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +12,15 @@ import java.util.Scanner;
 public class TeacherService implements ITeacherService {
     private static List<Teacher> teacherList = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
+    private static final String PATH = "src/home_work/data/student.csv";
 
     @Override
     public void addTeacher() {
+        List<Teacher> addTeacher = new ArrayList<>();
         Teacher teacher = inforTeacher();
-        teacherList.add(teacher);
+        addTeacher.add(teacher);
+//        teacherList.add(teacher);
         System.out.println("Thêm mới thành công!. ");
-
     }
 
     @Override
