@@ -66,6 +66,7 @@ public class StudentService implements IStudentService {
         int idRemove=0;
         while (true){
             try {
+                studentList=ReadFileUtil.readStudentFile(PATH);
                 idRemove = Integer.parseInt(scanner.nextLine());
                 boolean isFlag = false;
                 for (Student student : studentList) {
@@ -93,7 +94,7 @@ public class StudentService implements IStudentService {
                 }
                 return;
 
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException | IOException e){
                 System.out.println("Bạn có chắc mình nhập đúng ID");
             }
         }
@@ -103,6 +104,11 @@ public class StudentService implements IStudentService {
     public void searchStudentById() {
         System.out.println("Mời bạn nhập id sinh viên cần tìm: ");
         int searchId=0;
+        try {
+            studentList=ReadFileUtil.readStudentFile(PATH);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         while (true){
             try {
                 searchId = Integer.parseInt(scanner.nextLine());
@@ -171,6 +177,11 @@ public class StudentService implements IStudentService {
 
     public void sortByName() {
         boolean needNextPass = true;
+        try {
+            studentList=ReadFileUtil.readStudentFile(PATH);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         for (int i = 0; i < studentList.size()-1 && needNextPass; i++) {
             needNextPass = false;
             for (int j = 0; j < studentList.size() - 1-i; j++) {
@@ -179,6 +190,11 @@ public class StudentService implements IStudentService {
                     needNextPass=true;
                 }
             }
+        }
+        try {
+            WriteFileUtil.writeStudentFileRemove(PATH,studentList);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     public static Student infoStudent() {
