@@ -4,10 +4,12 @@ import home_work.exception.DuplicateIDException;
 import home_work.model.Student;
 import home_work.service.IStudentService;
 import home_work.util.ReadFileUtil;
+import home_work.util.Regex;
 import home_work.util.WriteFileUtil;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.PatternSyntaxException;
 
 public class StudentService implements IStudentService {
     private static List<Student> studentList = new ArrayList<>();
@@ -32,7 +34,12 @@ public class StudentService implements IStudentService {
     @Override
     public void addStudent() {
         List<Student> addStudent=new ArrayList<>();
-        Student student = infoStudent();
+        Student student = null;
+        try {
+            student = infoStudent();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         addStudent.add(student);
 //        studentList.add(student);
         System.out.println("Thêm mới thành công!. ");
@@ -197,9 +204,10 @@ public class StudentService implements IStudentService {
             e.printStackTrace();
         }
     }
-    public static Student infoStudent() {
+    public static Student infoStudent() throws IOException {
         System.out.print("Nhập id: ");
         int id = 0;
+        studentList= ReadFileUtil.readStudentFile(PATH);
         while (true) {
             try {
                 id = Integer.parseInt(scanner.nextLine());
@@ -218,11 +226,45 @@ public class StudentService implements IStudentService {
             }
         }
         System.out.print("Nhập name: ");
-        String name = scanner.nextLine();
-        System.out.println("Tên sinh viên: " + name);
-        System.out.print("Nhập ngày sinh: ");
-        String dayOfBirth = scanner.nextLine();
-        System.out.println("Ngày sinh: " + dayOfBirth);
+        String name = getName();
+
+
+//        String name;
+//        do {
+//            try {
+//                System.out.print("Nhập tên: ");
+//                name = scanner.nextLine();
+//                if (name.matches("([A-Z][^0-9!.#$@_+,?-]*[ ])+[A-Z][^0-9!.#$@_+,?A-Z]+")){
+//                    System.out.println("Tên sinh viên: " + name);
+//                    break;
+//                } else {
+//                    System.out.println("Nhập sai cú pháp nhâọ lại! ");
+//                }
+//
+//
+//            } catch (PatternSyntaxException e){
+//                e.printStackTrace();
+//                System.out.println(e.getMessage());
+//            }
+//
+//        }while (true);
+
+
+
+        String dayOfBirth;
+        do {
+            System.out.print("Nhập ngày sinh: ");
+            dayOfBirth = scanner.nextLine();
+            if (dayOfBirth.matches(Regex.REGEX)){
+                System.out.println("Ngày sinh: " + dayOfBirth);
+                break;
+            } else {
+                System.out.println("Nhập sai nhập lại");
+            }
+        } while (true);
+
+
+
         System.out.println("Nhập vào giới tính");
         String gender = scanner.nextLine();
         System.out.println("Giới tính : " + gender);
@@ -240,7 +282,24 @@ public class StudentService implements IStudentService {
         System.out.print("Nhập tên Lớp: ");
         String className = scanner.nextLine();
         System.out.println("Lớp: " + className);
-        return new Student(id, name, dayOfBirth, gender, className, score);
+        return new Student(id,name, dayOfBirth, gender, className, score);
+    }
+    public static String getName() {
+        String name = scanner.nextLine();
+        String[] arr = name.toLowerCase().trim().split("");
+        StringBuilder str = new StringBuilder().append(arr[0].toUpperCase());
+        for (int i = 1; i < arr.length; i++) {
+            if (!arr[i].equals(" ")) {
+                if (arr[i-1].equals(" ")) {
+                    str.append(arr[i].toUpperCase());
+                } else {
+                    str.append(arr[i]);
+                }
+            } else if (!arr[i+1].equals(" ")) {
+                str.append(arr[i]);
+            }
+        }
+        return str.toString();
     }
 
 //    public static Student infoStudent() {
