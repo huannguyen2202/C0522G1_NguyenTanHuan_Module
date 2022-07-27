@@ -34,7 +34,7 @@ public class House extends Facility {
 
     @Override
     public String toString() {
-        return "House{" +
+        return super.toString()+"House{" +
                 "roomStandard='" + roomStandard + '\'' +
                 ", numberOfFloors=" + numberOfFloors +
                 '}';

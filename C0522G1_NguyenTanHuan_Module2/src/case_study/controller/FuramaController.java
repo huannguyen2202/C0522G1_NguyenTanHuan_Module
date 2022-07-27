@@ -7,24 +7,32 @@ import java.util.Scanner;
 
 public class FuramaController {
     public static void displayMainMenu() {
-//        StudentController studentController = new StudentController();
-//        TeacherController teacherController = new TeacherController();
-        EmployeeManagement employeeManagement =new EmployeeManagement();
-        CustomerManagement customerManagement=new CustomerManagement();
-        FacilityManagement facilityManagement=new FacilityManagement();
-        BookingManagerment bookingManagerment=new BookingManagerment();
-        PromotionManagement promotionManagement=new PromotionManagement();
+
+        EmployeeManagement employeeManagement = new EmployeeManagement();
+        CustomerManagement customerManagement = new CustomerManagement();
+        FacilityManagement facilityManagement = new FacilityManagement();
+        BookingManagerment bookingManagerment = new BookingManagerment();
+        PromotionManagement promotionManagement = new PromotionManagement();
+
         Scanner scanner = new Scanner(System.in);
+
         do {
-            System.out.println("Chương trình quản lí sinh viên. \n" +
-                    "1. Employee Management.\n" +
-                    "2. Customer Management \n " +
-                    "3. Facility Management  \n " +
-                    "4. Booking Management  \n " +
-                    "5. Promotion Management  \n " +
-                    "6. Exit");
-            System.out.println("Nhập vào lựa chọn của ban! ");
-            int choose = Integer.parseInt(scanner.nextLine());
+            System.out.println("CHƯƠNG TRÌNH QUẢN LÝ KHU NGHỈ DƯỠNG FURAMA. \n" +
+                    "1. Quản lý nhân viên\n" +
+                    "2. Quản lý khách hàng \n " +
+                    "3. Quản lý cơ sở  \n " +
+                    "4. Quản lý đặt chỗ  \n " +
+                    "5. Quản lý khuyến mãi  \n " +
+                    "6. Thoát");
+
+            int choose = 0;
+            try {
+                System.out.println("Mời bạn nhập vào lựa chọn!");
+                choose = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e){
+                System.out.println("Vui lòng nhập số!");
+            }
+
             switch (choose) {
                 case 1:
                     employeeManagement.menuEmployee();
@@ -43,6 +51,8 @@ public class FuramaController {
                     break;
                 case 6:
                     System.exit(1);
+                default:
+                    System.out.println("Nhập lại lựa chọn!");
 
             }
 

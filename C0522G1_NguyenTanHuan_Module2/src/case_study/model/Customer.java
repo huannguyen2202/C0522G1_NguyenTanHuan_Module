@@ -29,6 +29,18 @@ public class Customer extends Person {
     public void setAddress(String address) {
         this.address = address;
     }
+    public String getInfo(){
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
+        this.getiD(),
+        this.getName(),
+        this.getDateOfBirth(),
+        this.getGender(),
+        this.getiDNumber(),
+        this.getPhoneNumber(),
+        this.getEmail(),
+        this.getTypeOfGuest(),
+        this.getAddress());
+    }
 
     @Override
     public String toString() {

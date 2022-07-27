@@ -205,11 +205,11 @@ public class StudentService implements IStudentService {
         }
     }
     public static Student infoStudent() throws IOException {
-        System.out.print("Nhập id: ");
-        int id = 0;
         studentList= ReadFileUtil.readStudentFile(PATH);
+        int id = 0;
         while (true) {
             try {
+                System.out.print("Nhập id: ");
                 id = Integer.parseInt(scanner.nextLine());
                 System.out.println("ID : " + id);
                 for (Student student:studentList){

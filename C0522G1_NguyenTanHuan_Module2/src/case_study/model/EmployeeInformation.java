@@ -18,6 +18,7 @@ public class EmployeeInformation extends Person {
         this.salary = salary;
     }
 
+
     public String getLevel() {
         return level;
     }
@@ -41,13 +42,25 @@ public class EmployeeInformation extends Person {
     public void setSalary(double salary) {
         this.salary = salary;
     }
+    public String getInfo(){
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n",
+                this.getiD(),
+                this.getName(),
+                this.getDateOfBirth(),
+                this.getGender(),
+                this.getiDNumber(),
+                this.getPhoneNumber(),
+                this.getEmail(),
+                this.getLevel(),
+                this.getLocation(),
+                this.getSalary());
+    }
 
     @Override
     public String toString() {
-        return "EmployeeInformation{" +
-                "level='" + level + '\'' +
-                ", location='" + location + '\'' +
-                ", salary=" + salary +
-                '}';
+        return super.toString()+
+                ", Level= "+level+
+                ", Location= "+location+
+                ", Salary= "+salary;
     }
 }
