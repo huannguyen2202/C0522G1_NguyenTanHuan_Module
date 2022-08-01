@@ -28,13 +28,13 @@ public class FacilityManagement {
 
             switch (choose) {
                 case 1:
-
+                    iFacilityService.display();
                     break;
                 case 2:
-
+                    iFacilityService.add();
                     break;
                 case 3:
-
+                    iFacilityService.displayMaintain();
                     break;
                 case 4:
                     return;

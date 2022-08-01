@@ -8,8 +8,12 @@ public class Villa extends Facility {
     public Villa() {
     }
 
-    public Villa(String serviceName, double usableArea, double rentalCosts, int maximumNumberOfPeople, String rentalType, String roomStandard, double poolArea, int numberOfFloors) {
-        super(serviceName, usableArea, rentalCosts, maximumNumberOfPeople, rentalType);
+    public Villa(String id, String serviceName, double usableArea,
+                 double rentalCosts, int maximumNumberOfPeople,
+                 String rentalType, String roomStandard,
+                 double poolArea, int numberOfFloors) {
+        super(id, serviceName, usableArea, rentalCosts,
+                maximumNumberOfPeople, rentalType);
         this.roomStandard = roomStandard;
         this.poolArea = poolArea;
         this.numberOfFloors = numberOfFloors;
@@ -38,13 +42,25 @@ public class Villa extends Facility {
     public void setNumberOfFloors(int numberOfFloors) {
         this.numberOfFloors = numberOfFloors;
     }
-
+    public String getInfo() {
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s",
+                this.getId(),
+                this.getServiceName(),
+                this.getUsableArea(),
+                this.getRentalCosts(),
+                this.getMaximumNumberOfPeople(),
+                this.getRentalType(),
+                this.getRoomStandard(),
+                this.getPoolArea(),
+                this.getNumberOfFloors());
+    }
     @Override
     public String toString() {
-        return super.toString()+"Villa{" +
-                "roomStandard='" + roomStandard + '\'' +
-                ", poolArea=" + poolArea +
-                ", numberOfFloors=" + numberOfFloors +
-                '}';
+        return super.toString() +
+                ", Tiêu chuẩn phòng: " + getRoomStandard() +
+                ", Diện tích hồ bơi (m2): " + getPoolArea() +
+                ", Số tầng: " + getNumberOfFloors();
     }
+
+
 }

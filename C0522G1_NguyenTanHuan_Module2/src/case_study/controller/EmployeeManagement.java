@@ -5,13 +5,14 @@ import case_study.service.impl.EmployeeService;
 import home_work.service.IStudentService;
 import home_work.service.impl.StudentService;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class EmployeeManagement {
     Scanner scanner = new Scanner(System.in);
     IEmployeeService iEmployeeService=new EmployeeService();
 
-    public void menuEmployee() {
+    public void menuEmployee() throws IOException {
         do {
             System.out.println("QUẢN LÝ NHÂN VIÊN!\n" +
                     "1. Hiển thị danh sách nhân viên \n" +
@@ -21,28 +22,26 @@ public class EmployeeManagement {
 
             int choose = 0;
             try {
-                System.out.println("Mời bạn nhập lựa chọn!");
+                System.out.print("Mời bạn nhập lựa chọn: ");
                 choose = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Vui lòng nhập số!");
+                System.out.print("Vui lòng nhập số: ");
             }
 
             switch (choose) {
                 case 1:
                     iEmployeeService.display();
-
                     break;
                 case 2:
                     iEmployeeService.add();
-
                     break;
                 case 3:
-
+                    iEmployeeService.edit();
                     break;
                 case 4:
                     return;
                 default:
-                    System.out.println("Nhập lại lựa chọn!");
+                    System.out.print("Nhập lại lựa chọn: ");
 
             }
 

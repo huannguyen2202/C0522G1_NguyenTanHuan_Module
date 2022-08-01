@@ -1,16 +1,16 @@
-package case_study.utils;
+package giai_de_thi_module_2.bai_tai_khoan_ngan_hang.util;
 
-import case_study.model.Customer;
-import case_study.model.EmployeeInformation;
+import giai_de_thi_module_2.bai_tai_khoan_ngan_hang.model.TaiKhoanNganHang;
+import giai_de_thi_module_2.bai_tai_khoan_ngan_hang.model.TaiKhoanThanhToan;
+import giai_de_thi_module_2.bai_tai_khoan_ngan_hang.model.TaiKhoanTietKiem;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadWriteCustomerFile {
+public class ReadWriteTaiKhoanNganHangtUtil {
     private static List<String> readFile(String path) {
-        List<String> stringList;
-        stringList = new ArrayList<>();
+        List<String> stringList = new ArrayList<>();
         String line;
         try {
             File file = new File(path);
@@ -29,28 +29,34 @@ public class ReadWriteCustomerFile {
         return stringList;
     }
 
-    public static List<Customer> readCustomerFile(String path) {
+    public static List<TaiKhoanNganHang> readTaiKhoanNganHangFile(String path) {
         List<String> stringList = readFile(path);
-        List<Customer> customers = new ArrayList<>();
+        List<TaiKhoanNganHang> taiKhoanNganHangList = new ArrayList<>();
         String[] info;
         for (String line : stringList) {
             info = line.split(",");
-
-                customers.add(new Customer(
+            if (info.length == 6) {
+                taiKhoanNganHangList.add(new TaiKhoanThanhToan(
                         Integer.parseInt(info[0]),
                         info[1],
                         info[2],
                         info[3],
                         Integer.parseInt(info[4]),
-                        Integer.parseInt(info[5]),
-                        info[6],
-                        info[7],
-                        info[8]));
-
-
+                        Double.parseDouble(info[5])));
+            } else if (info.length == 8) {
+                taiKhoanNganHangList.add(new TaiKhoanTietKiem(
+                        Integer.parseInt(info[0]),
+                        info[1],
+                        info[2],
+                        info[3],
+                        Integer.parseInt(info[4]),
+                        info[5],
+                        Double.parseDouble(info[6]),
+                        info[7]));
+            }
         }
 
-        return customers;
+        return taiKhoanNganHangList;
     }
 
     private static void writeFile(String path, String data) {
@@ -65,13 +71,12 @@ public class ReadWriteCustomerFile {
         }
     }
 
-    public static void writeCustomerFile(String path, List<Customer> customers) {
+    public static void writeTaiKhoanNganHangFile(String path, List<TaiKhoanNganHang> taiKhoanNganHangList) {
         StringBuilder data = new StringBuilder();
-        for (Customer customer : customers) {
-            data.append(customer.getInfo());
+        for (TaiKhoanNganHang taiKhoanNganHang : taiKhoanNganHangList) {
+            data.append(taiKhoanNganHang.getInfo());
         }
 
         writeFile(path, data.toString());
     }
-
 }

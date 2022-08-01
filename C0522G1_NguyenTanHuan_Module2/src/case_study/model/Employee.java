@@ -1,17 +1,17 @@
 package case_study.model;
 
-public class EmployeeInformation extends Person {
+public class Employee extends Person {
     private String level;
     private String location;
     private double salary;
 
-    public EmployeeInformation() {
+    public Employee() {
     }
 
-    public EmployeeInformation(int iD, String name, String dateOfBirth,
-                               String gender, int iDNumber, int phoneNumber,
-                               String email, String level, String location,
-                               double salary) {
+    public Employee(int iD, String name, String dateOfBirth,
+                    String gender, int iDNumber, int phoneNumber,
+                    String email, String level, String location,
+                    double salary) {
         super(iD, name, dateOfBirth, gender, iDNumber, phoneNumber, email);
         this.level = level;
         this.location = location;

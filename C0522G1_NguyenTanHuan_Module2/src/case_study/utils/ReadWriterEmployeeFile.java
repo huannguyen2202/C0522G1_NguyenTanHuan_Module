@@ -1,12 +1,12 @@
 package case_study.utils;
 
-import case_study.model.EmployeeInformation;
+import case_study.model.Employee;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadWriteEmployeeFile {
+public class ReadWriterEmployeeFile {
     private static List<String> readFile(String path) {
         List<String> stringList;
         stringList = new ArrayList<>();
@@ -17,7 +17,9 @@ public class ReadWriteEmployeeFile {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             while ((line = bufferedReader.readLine()) != null) {
-                stringList.add(line);
+                if (!line.equals("")){
+                    stringList.add(line);
+                }
             }
 
             bufferedReader.close();
@@ -27,13 +29,13 @@ public class ReadWriteEmployeeFile {
 
         return stringList;
     }
-    public static List<EmployeeInformation> readEmployeeInformationFile(String path) {
+    public static List<Employee> readEmployeeInformationFile(String path) {
         List<String> stringList = readFile(path);
-        List<EmployeeInformation> employeeInformations = new ArrayList<>();
+        List<Employee> employees = new ArrayList<>();
         String[] info;
         for (String line : stringList) {
             info = line.split(",");
-            employeeInformations.add(new EmployeeInformation(
+            employees.add(new Employee(
                     Integer.parseInt(info[0]),
                     info[1],
                     info[2],
@@ -45,10 +47,10 @@ public class ReadWriteEmployeeFile {
                     info[8],
                     Double.parseDouble(info[9])));
         }
-        return employeeInformations;
+        return employees;
     }
 
-    private static void writeFile(String path, String data) {
+    private static void writerFile(String path, String data) {
         try {
             File file = new File(path);
             FileWriter fileWriter = new FileWriter(file);
@@ -60,12 +62,12 @@ public class ReadWriteEmployeeFile {
         }
     }
 
-    public static void writeEmployeeInformationFile(String path, List<EmployeeInformation> employees) {
+    public static void writerEmployeeInformationFile(String path, List<Employee> employees) {
         StringBuilder data = new StringBuilder();
-        for (EmployeeInformation employeeInformation : employees) {
-            data.append(employeeInformation.getInfo());
+        for (Employee employee : employees) {
+            data.append(employee.getInfo());
         }
 
-        writeFile(path, data.toString());
+        writerFile(path, data.toString());
     }
 }

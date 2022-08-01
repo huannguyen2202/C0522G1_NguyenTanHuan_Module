@@ -3,10 +3,11 @@ package case_study.controller;
 import home_work.controller.StudentController;
 import home_work.controller.TeacherController;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class FuramaController {
-    public static void displayMainMenu() {
+    public static void displayMainMenu() throws IOException {
 
         EmployeeManagement employeeManagement = new EmployeeManagement();
         CustomerManagement customerManagement = new CustomerManagement();
@@ -27,10 +28,10 @@ public class FuramaController {
 
             int choose = 0;
             try {
-                System.out.println("Mời bạn nhập vào lựa chọn!");
+                System.out.print("Mời bạn nhập vào lựa chọn: ");
                 choose = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e){
-                System.out.println("Vui lòng nhập số!");
+                System.out.print("Vui lòng nhập số: ");
             }
 
             switch (choose) {
@@ -52,7 +53,7 @@ public class FuramaController {
                 case 6:
                     System.exit(1);
                 default:
-                    System.out.println("Nhập lại lựa chọn!");
+                    System.out.print("Nhập lại lựa chọn: ");
 
             }
 
