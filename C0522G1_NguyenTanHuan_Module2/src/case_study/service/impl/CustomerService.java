@@ -2,13 +2,13 @@ package case_study.service.impl;
 
 import case_study.exception.DuplicateIDException;
 import case_study.model.Customer;
+
 import case_study.service.ICustomerService;
 import case_study.utils.ReadCustomerFileUtil;
 
 import case_study.utils.WriterCustomerFileUtil;
 import home_work.util.Regex;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -112,16 +112,11 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public void add()  {
-        List<Customer> addCustomer = new ArrayList<>();
-        addCustomer = ReadCustomerFileUtil.readCustomerFile(PATH);
-        Customer customer = null;
-        customer = infoCustomer();
-        addCustomer.add(customer);
+    public void add() {
+        List<Customer> addCustomer = ReadCustomerFileUtil.readCustomerFile(PATH);
+        addCustomer.add(infoCustomer());
         System.out.println("Thêm mới thành công! ");
         WriterCustomerFileUtil.writerCustomerFile(PATH, addCustomer);
-        customerList.add(customer);
-        addCustomer.remove(0);
     }
 
     @Override
@@ -135,6 +130,7 @@ public class CustomerService implements ICustomerService {
 
     public static Customer infoCustomer() {
         int id = 0;
+        customerList = ReadCustomerFileUtil.readCustomerFile(PATH);
         while (true) {
             try {
                 System.out.print("Nhập id: ");

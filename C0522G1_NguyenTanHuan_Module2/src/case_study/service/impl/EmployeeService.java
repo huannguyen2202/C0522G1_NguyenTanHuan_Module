@@ -1,6 +1,7 @@
 package case_study.service.impl;
 
 import case_study.exception.DuplicateIDException;
+import case_study.model.Customer;
 import case_study.model.Employee;
 import case_study.service.IEmployeeService;
 import case_study.utils.ReadWriterEmployeeFile;
@@ -117,6 +118,7 @@ public class EmployeeService implements IEmployeeService {
     @Override
     public void add() {
         List<Employee> addEmployee = ReadWriterEmployeeFile.readEmployeeInformationFile(PATH);
+//        List<Employee> addEmployee = ReadWriterEmployeeFile.readEmployeeInformationFile(PATH);
         addEmployee.add(infoEmployeeInformation());
         System.out.println("Thêm mới thành công!. ");
         ReadWriterEmployeeFile.writerEmployeeInformationFile(PATH, addEmployee);
@@ -133,6 +135,7 @@ public class EmployeeService implements IEmployeeService {
 
     public static Employee infoEmployeeInformation() {
         int id = 0;
+        employeeList=ReadWriterEmployeeFile.readEmployeeInformationFile(PATH);
         while (true) {
             try {
                 System.out.print("Nhập id: ");

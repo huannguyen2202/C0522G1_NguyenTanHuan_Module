@@ -1,13 +1,12 @@
-package case_study.utils;
+package bai_lam_them.bank.utils;
 
-import case_study.model.Customer;
-import case_study.model.Employee;
+import bai_lam_them.bank.model.SavingBankAccount;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadWriterEmployeeFile {
+public class ReadWriteSavingFileUtil {
     private static List<String> readFile(String path) {
         List<String> stringList;
         stringList = new ArrayList<>();
@@ -18,7 +17,7 @@ public class ReadWriterEmployeeFile {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             while ((line = bufferedReader.readLine()) != null) {
-                if (!line.equals("")){
+                if (!line.equals("")) {
                     stringList.add(line);
                 }
             }
@@ -30,25 +29,24 @@ public class ReadWriterEmployeeFile {
 
         return stringList;
     }
-    public static List<Employee> readEmployeeInformationFile(String path) {
+
+    public static List<SavingBankAccount> readSavingBankAccountFile(String path) {
         List<String> stringList = readFile(path);
-        List<Employee> employees = new ArrayList<>();
+        List<SavingBankAccount> savingBankAccounts = new ArrayList<>();
         String[] info;
         for (String line : stringList) {
             info = line.split(",");
-            employees.add(new Employee(
+            savingBankAccounts.add(new SavingBankAccount(
                     Integer.parseInt(info[0]),
                     info[1],
                     info[2],
                     info[3],
                     Integer.parseInt(info[4]),
-                    Integer.parseInt(info[5]),
-                    info[6],
-                    info[7],
-                    info[8],
-                    Double.parseDouble(info[9])));
+                    info[5],
+                    Double.parseDouble(info[6]),
+                    Integer.parseInt(info[7])));
         }
-        return employees;
+        return savingBankAccounts;
     }
 
     private static void writerFile(String path, String data) {
@@ -63,12 +61,11 @@ public class ReadWriterEmployeeFile {
         }
     }
 
-    public static void writerEmployeeInformationFile(String path, List<Employee> employees) {
+    public static void writerSavingBankAccountFile(String path, List<SavingBankAccount> savingBankAccounts) {
         StringBuilder data = new StringBuilder();
-        for (Employee employee : employees) {
-            data.append(employee.getInfo());
+        for (SavingBankAccount savingBankAccount : savingBankAccounts) {
+            data.append(savingBankAccount.getInfo());
         }
-
         writerFile(path, data.toString());
     }
 }
